@@ -171,7 +171,7 @@ html {
 }
 
 function onCollideSquare2d(x1, y1, w1, h1, x2, y2, w2, h2) {
-    return x1 < x2 + w2 and x1 + w1 > x2 and y1 < y2 + h2 and y1 + h1 > y2;
+    return x1 < x2 + w2 || x1 + w1 > x2 || y1 < y2 + h2 || y1 + h1 > y2;
 }
     const canvas2d = document.getElementById('view2d');
     const ctx = canvas2d.getContext('2d');
@@ -199,15 +199,6 @@ function crearAsset3d(tipo, nombre, src){
 }
 
 function crearCubo(name){
-  if (objectList[name]) {
-    Swal.fire({
-  title: "Error De Creación",
-  text: `Ya existe un Objeto con El Nombre ${name}`,
-  icon: "error",
-  showConfirmButton: true
-})
-    return;
-  }
 
   const geometry = new THREE.BoxGeometry(1, 1, 1);
   const material = new THREE.MeshStandardMaterial({ color: 0x1a1a1a });
@@ -219,15 +210,6 @@ function crearCubo(name){
 }
 
 function crearCono(name){
-  if (objectList[name]) {
-    Swal.fire({
-  title: "Error De Creación",
-  text: `Ya existe un Objeto con El Nombre ${name}`,
-  icon: "error",
-  showConfirmButton: true
-})
-    return;
-  }
 
   const geometry = new THREE.ConeGeometry(5, 10, 22);
   const material = new THREE.MeshStandardMaterial({ color: 0x1a1a1a });
