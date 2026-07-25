@@ -9,6 +9,8 @@ function guardar(){
   };
   
   localStorage.setItem(game_name.value, JSON.stringify(game));
+  
+  cargarListaJuegos();
 }
 
 function cargarListaJuegos() {
@@ -40,6 +42,8 @@ function abrirJuego(name) {
 
 function borrarJuego(name){
   localStorage.removeItem(name);
+
+  cargarListaJuegos();
 }
 
 cargarListaJuegos();
