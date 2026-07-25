@@ -147,9 +147,8 @@ html {
 
     <canvas id="view3d"></canvas>
     <canvas id="view2d"></canvas>
-  
+ 
   <div id="loader">
-    <img src="./assets/logooo.png" width="200px" height="200px">
     <p id="ltxt">${ot.value}</p>
   </div>
 
@@ -176,8 +175,8 @@ function onCollideSquare2d(x1, y1, w1, h1, x2, y2, w2, h2) {
     const canvas2d = document.getElementById('view2d');
     const ctx = canvas2d.getContext('2d');
 
-    canvas2d.width = window.innerWidth();
-    canvas2d.height = window.innerHeight();
+    canvas2d.width = window.innerWidth;
+    canvas2d.height = window.innerHeight;
 
     //
 let objectList = {};
@@ -252,7 +251,7 @@ const camera = new THREE.PerspectiveCamera(75, 360 / 250, 0.1, 1000);
 camera.position.z = 5;
 
 const render = new THREE.WebGLRenderer({ canvas: canvas3d, antialias: true });
-render.setSize(360, 250);
+render.setSize(window.innerWidth, window.innerHeight);
 
 const controls = new THREE.OrbitControls(camera, canvas3d);
 
@@ -313,7 +312,7 @@ async function gameLoop() {
 
 async function ejecutar() {
   if (!pyodide) {
-    return Swal.fire({ title: 'Cargando...', text: 'Python aún se está cargando', icon: 'info' });
+    await initPython();
   }
   
   const codigo = code;
@@ -340,7 +339,11 @@ async function ejecutar() {
     pyodide.globals.set("clear", () => ctx.clearRect(0, 0, canvas2d.width, canvas2d.height));
     pyodide.globals.set("drawRect", (x, y, w, h) => ctx.fillRect(x, y, w, h));
     pyodide.globals.set("setColor", (color) => ctx.fillStyle = color);
-    pyodide.globals.set("drawCircle", (x, y, r) => drawCircle(x, y, r));
+    pyodide.globals.set("drawCircle", (x, y, r) => {
+      ctx.beginPath();
+      ctx.arc(x, y, r, 0, Math.PI * 2);
+      ctx.fill();
+    });
     pyodide.globals.set("setAmbientLight3dColor", (colour) => ambient_light.color = colour);
     pyodide.globals.set("setAmbientLight3dIntensity", (intensityy) => ambient_light.intensity = intensityy);
     pyodide.globals.set(
@@ -355,13 +358,13 @@ async function ejecutar() {
     pyodide.globals.set("show3dAxes", () => axis.visible = true);
     pyodide.globals.set("hide3dAxes", () => axis.visible = false);
     pyodide.globals.set("createAudio", (name, src) => createAudio(name, src));
-    pyodide.globals.set("playAudio", (name) => objectList[name].play);
-    pyodide.globals.set("stopAudio", (name) => objectList[name].stop);
-    pyodide.globals.set("pauseAudio", (name) => objectList[name].pause);
+    pyodide.globals.set("playAudio", (name) => objectList[name].play());
+    pyodide.globals.set("stopAudio", (name) => { objectList[name].pause(); objectList[name].currentTime = 0; });
+    pyodide.globals.set("pauseAudio", (name) => objectList[name].pause());
     pyodide.globals.set("save", (key, value) => localStorage.setItem(key, value));
     pyodide.globals.set("load", (key) => localStorage.getItem(key));
     pyodide.globals.set("unsave", (key) => localStorage.removeItem(key));
-    pyodide.globals.set("createAsset3d", (name, src) => crearAsset(name, src));
+    pyodide.globals.set("createAsset3d", (name, src) => crearAsset3d("Mesh", name, src));
     pyodide.globals.set("screen_touched", () => pantalla_tocada());
     pyodide.globals.set("key_down", (key) => tecla_tocada(key));
     
@@ -422,7 +425,9 @@ document.addEventListener("touchend", function () {
     pantallaTocada = false;
 });
 
-ejecutar();
+initPython().then(() => {
+  ejecutar();
+});
 
   </script>
 </body>
