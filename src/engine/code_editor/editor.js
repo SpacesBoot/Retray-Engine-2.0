@@ -12,7 +12,6 @@ document.addEventListener('DOMContentLoaded', () => {
     smartIndent: true,
     lineWrapping: true,
     styleActiveLine: true,
-    extraKeys: { "Ctrl-Space": "autocomplete" }
   });
   
   initPython();

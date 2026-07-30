@@ -95,7 +95,7 @@ async function ejecutar() {
     pyodide.globals.set("save", (key, value) => localStorage.setItem(key, value));
     pyodide.globals.set("load", (key) => localStorage.getItem(key));
     pyodide.globals.set("unsave", (key) => localStorage.removeItem(key));
-    pyodide.globals.set("createAsset3d", (name, src) => crearAsset(name, src));
+    pyodide.globals.set("createAsset3d", (tipo, name, src) => crearAsset3d(tipo, name, src));
     pyodide.globals.set("screen_touched", () => pantalla_tocada());
     pyodide.globals.set("key_down", (key) => tecla_tocada(key));
     
