@@ -117,6 +117,23 @@ async function detener() {
     delete objectList[key];
   }
 
+  await pyodide.runPythonAsync(`
+  import shutil, os
+  for f in os.listdir('/home/pyodide'):
+      path = f'/home/pyodide/{f}'
+      if os.path.isdir(path):
+          shutil.rmtree(path)
+      else:
+          os.remove(path)
+  `);
+  
+  await pyodide.runPythonAsync(`
+  import sys
+  for name in list(sys.modules.keys()):
+      if not name.startswith('builtins') and not name.startswith('_'):
+          del sys.modules[name]
+  `);
+
   running = false;
 
   Atomics.store(interruptBuffer, 0, 2);
