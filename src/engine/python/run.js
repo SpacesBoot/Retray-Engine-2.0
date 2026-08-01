@@ -69,7 +69,7 @@ async function ejecutar() {
     pyodide.globals.set("cam3d_set_static", () => controls.enabled = false)
     pyodide.globals.set("cam3d_set", (x, y, z) => camera.position.set(x, y, z));
     pyodide.globals.set("cam3d_set_rotation", (x, y, z) => camera.rotation.set(x, y, z));
-    pyodide.globals.set("cam3d_third_person", (obj) => camera.lookAt(objectList[obj].position));
+    pyodide.globals.set("cam3d_third_person", (obj) => camera.lookAt(objectList[obj].position.clone()));
     pyodide.globals.set("drawText", (txt, x, y) => ctx.fillText(txt, x, y));
     pyodide.globals.set("clear", () => ctx.clearRect(0, 0, canvas2d.width, canvas2d.height));
     pyodide.globals.set("drawRect", (x, y, w, h) => ctx.fillRect(x, y, w, h));
@@ -123,17 +123,4 @@ async function detener() {
     if(objectList[key] && objectList[key].material) objectList[key].material.dispose();
     delete objectList[key];
   }
-
-  try {
-    await pyodide.runPythonAsync(`
-import gc
-for name in list(globals().keys()):
-    if name not in ['__name__', '__doc__', '__package__', '__loader__', '__spec__', '__builtins__']:
-        del globals()[name]
-gc.collect()
-    `);
-  } catch(e) {}
-
-  const funcs = ["create3dPrimitive","move3d","rotate3d","scale3d","toast","alert","cam3d_set_free","cam3d_set_static","cam3d_set","cam3d_set_rotation","cam3d_third_person","drawText","clear","drawRect","setColor","drawCircle","setAmbientLight3dColor","setAmbientLight3dIntensity","set3dLightIntensity","set3dLightColor","setFont","show3dAxes","hide3dAxes","createAudio","playAudio","stopAudio","pauseAudio","save","load","unsave","createAsset3d","screen_touched","key_down"];
-  funcs.forEach(f => pyodide.globals.delete(f));
 }
