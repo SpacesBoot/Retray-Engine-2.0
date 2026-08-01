@@ -69,15 +69,7 @@ async function ejecutar() {
     pyodide.globals.set("cam3d_set_static", () => controls.enabled = false)
     pyodide.globals.set("cam3d_set", (x, y, z) => camera.position.set(x, y, z));
     pyodide.globals.set("cam3d_set_rotation", (x, y, z) => camera.rotation.set(x, y, z));
-    pyodide.globals.set("cam3d_third_person", (obj) => {
-  const target = objectList[obj];
-  if (target instanceof THREE.Object3D) {
-    camera.lookAt(target.position);
-  } else {
-    console.error("No existe el objeto:", obj);
-  }
-});
-
+    pyodide.globals.set("cam3d_third_person", (obj, offset) => {cam3d_third_person_fn(obj, offset)});
     pyodide.globals.set("drawText", (txt, x, y) => ctx.fillText(txt, x, y));
     pyodide.globals.set("clear", () => ctx.clearRect(0, 0, canvas2d.width, canvas2d.height));
     pyodide.globals.set("drawRect", (x, y, w, h) => ctx.fillRect(x, y, w, h));
