@@ -24,7 +24,7 @@ const GLTFloader = new THREE.GLTFLoader();
 function cam3d_third_person_fn(obj, offsett) {
   const target = objectList[obj];
   if (target instanceof THREE.Object3D) {
-    const offset = new THREE.Vector3(0, 5, target.position.z + offsett);
+    const offset = new THREE.Vector3(0, 5, offsett);
     const camPos = target.position.clone().add(offset);
 
     camera.position.copy(camPos);
