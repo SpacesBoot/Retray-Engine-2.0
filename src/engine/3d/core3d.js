@@ -24,13 +24,18 @@ const GLTFloader = new THREE.GLTFLoader();
 function cam3d_third_person_fn(obj, offsett) {
   const target = objectList[obj];
   if (target instanceof THREE.Object3D) {
-    const offset = new THREE.Vector3(0, 5, offsett);
-    const camPos = target.position.clone().add(offset);
+    const forward = new THREE.Vector3(0, 0, 1);
+    forward.applyQuaternion(target.quaternion);
 
-    camera.position.copy(camPos);
+    const camPos = target.position.clone()
+      .add(forward.clone().multiplyScalar(-offsett))
+      .add(new THREE.Vector3(0, offsett * 0.5, 0));
+
+    camera.position.lerp(camPos, 0.1);
     camera.lookAt(target.position);
   }
 }
+
 
 function animate(){
   requestAnimationFrame(animate);
