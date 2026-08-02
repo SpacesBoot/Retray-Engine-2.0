@@ -33,13 +33,9 @@ function cam3d_third_person_fn(obj, offsett) {
 }
 
 function displaceTo_fn(obj1, obj2, smoothness) {
-  let dirX = objectList[obj1].position.x - objectList[obj2].position.x;
-  let dirY = objectList[obj1].position.y - objectList[obj2].position.y;
-  let dirZ = objectList[obj1].position.z - objectList[obj2].position.z;
-
-  objectList[obj1].position.x += dirX * smoothness;
-  objectList[obj1].position.y += dirY * smoothness;
-  objectList[obj1].position.z += dirZ * smoothness;
+  objectList[obj1].position.x += (objectList[obj2].position.x - objectList[obj1].position.x) * smoothness;
+  objectList[obj1].position.y += (objectList[obj2].position.y - objectList[obj1].position.y) * smoothness;
+  objectList[obj1].position.z += (objectList[obj2].position.z - objectList[obj1].position.z) * smoothness;
 }
 
 function animate(){
