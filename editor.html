@@ -37,7 +37,41 @@
   </div>
 
   <div id="downbar">
-    <textarea name="code-editor" id="code-editor" cols="30" rows="10">
+    <div id="blocks_editor">
+      <xml id="toolbox" style="display: none">
+    
+  <category name="Eventos" colour="180">
+    <block type="al_iniciar">
+    </block>
+  </category>
+  
+  <category name="Logica" colour="%{BKY_LOGIC_HUE}">
+    <block type="controls_if"></block>
+    <block type="logic_compare"></block>
+    <block type="logic_boolean"></block>
+    <block type="text"></block>
+  </category>
+  
+  <category name="Loops" colour="%{BKY_LOOPS_HUE}">
+    <block type="controls_repeat_ext"></block>
+    <block type="controls_whileUntil"></block>
+    <block type="forever"></block>
+  </category>
+  
+  <category name="Matematica" colour="%{BKY_MATH_HUE}">
+    <block type="math_number"></block>
+    <block type="math_arithmetic"></block>
+  </category>
+  
+  <category name="Objetos" colour="0">
+      <block type="crear_obj"></block>
+      <block type="cambiar_eje"></block>
+    </category>
+    
+  <category name="Variables" custom="VARIABLE" colour="330"></category>
+  </xml>
+    </div>
+    <!-- <textarea name="code-editor" id="code-editor" cols="30" rows="10">
 # this a game example
 
 createPrimitive("cube", "pepe")
@@ -47,7 +81,7 @@ def update():
   global x
   x -= 0.1
   move("pepe", x, 0, 0)
-</textarea>
+</textarea> -->
   </div>
   
   <div id="loader">
