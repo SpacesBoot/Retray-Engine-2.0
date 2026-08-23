@@ -1,7 +1,7 @@
 
 // configuracion
 
-const workspace = Blockly.inject('blocks-editor', {
+const workspace = Blockly.inject('blocks_editor', {
   toolbox: document.getElementById('toolbox'),
   renderer: 'zelos',
   zoom: {
