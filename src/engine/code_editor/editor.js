@@ -1,6 +1,6 @@
 let editor;
 
-document.addEventListener('DOMContentLoaded', () => {
+/* document.addEventListener('DOMContentLoaded', () => {
   editor = CodeMirror.fromTextArea(document.getElementById('code-editor') {
     mode: 'python',
     theme: 'dracula',
@@ -15,4 +15,4 @@ document.addEventListener('DOMContentLoaded', () => {
   });
   
   initPython();
-});
+}); */
