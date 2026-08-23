@@ -1,7 +1,7 @@
 let editor;
 
 document.addEventListener('DOMContentLoaded', () => {
-  editor = CodeMirror.fromTextArea(document.getElementById('code-editor'), {
+  editor = CodeMirror.fromTextArea(document.getElementById('code-editor'..-
     mode: 'python',
     theme: 'dracula',
     lineNumbers: true,
