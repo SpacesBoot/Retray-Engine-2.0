@@ -21,7 +21,7 @@ const workspace = Blockly.inject('blocks_editor', {
 
 Blockly.defineBlocksWithJsonArray([
   {
-    "type": "crear_obj",//el bloque de crear un clásico
+    "type": "crear_obj",
     "message0": "crear %1 con id : %2",
     "args0": [
       { 
