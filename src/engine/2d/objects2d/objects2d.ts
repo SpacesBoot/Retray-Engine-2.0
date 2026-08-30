@@ -1,18 +1,18 @@
-import * as PIXI from 'pixi';
+import * as PIXI from 'pixi.js';
 import * as Matter from 'matter-js';
 import { game, physicsEngine, world } from '../core2d';
 
 type Object2D = {
     name: string;
     type: string;
-    displayObject: PIXI.DisplayObject;
+    displayObject: PIXI.Graphics;
     body: Matter.Body;
 };
 
 let objectList2d: { [key: string]: Object2D } = {};
 
 export function create2dObject(type: string, name: string): void {
-    let object: PIXI.DisplayObject;
+    let object = new PIXI.Graphics();
     let body: Matter.Body;
     switch (type) {
         case 'rectangle':
@@ -36,3 +36,5 @@ export function create2dObject(type: string, name: string): void {
     objectList2d[name] = { name, type, displayObject: object, body };
     game.stage.addChild(object);
 }
+
+export { Object2D, objectList2d };

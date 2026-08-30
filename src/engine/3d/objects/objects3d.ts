@@ -5,7 +5,7 @@ import * as CANNON from 'cannon-es';
 import Swal from "sweetalert2";
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
-import { scene, camera, render, controls, grid, axis, ambient_light, GLTFloader } from './core3d';
+import { scene, camera, render, controls, grid, axis, ambient_light, GLTFloader } from '../core3d';
 
 type Object3D = {
     name: string;

@@ -1,16 +1,16 @@
-import { editor } from "../editor/editor";
+import { editor } from "../code_editor/editor";
 import { objectList3d } from "../3d/objects/objects";
-import { game_name, ot, optionalColor } from "../main/main";
+import { game_name, ot, oc } from "../main/main";
 import { export_type } from "../3d/export/export";
 
 function guardar(){
   let game = {
-    code: editor.getValue(),
+    code: editor.state.doc.toString(),
     name: game_name.value,
     objects: objectList3d,
     exportType: export_type.value,
     optionalText: ot.value,
-    optionalC: optionalColor.value
+    optionalC: oc.value
   };
   
   localStorage.setItem(game_name.value, JSON.stringify(game));
@@ -42,7 +42,7 @@ function abrirJuego(name: string): void {
   objectList3d = game.objects;
   export_type.value = game.exportType;
   ot.value = game.optionalText;
-  optionalColor.value = game.optionalC;
+  oc.value = game.optionalC;
 }
 
 function borrarJuego(name: string): void {
