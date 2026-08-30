@@ -1,3 +1,12 @@
+import { loadPyodide } from "pyodide";
+import Swal from "sweetalert2";
+import { crearObjeto3d, crearAsset3d, objectList, axis, grid, camera, controls, ambient_light, cam3d_third_person_fn, displaceTo_fn } from "../three/three";
+import { pantalla_tocada, tecla_tocada } from "../input/input";
+import { ctx, canvas2d, drawCircle } from "../canvas/canvas";
+import { createAudio } from "../audio/audio";
+import { editor } from "../editor/editor";
+import { game_name, ot, optionalColor } from "../save/save";
+
 let pyodide: Awaited<ReturnType<typeof loadPyodide>> | null = null;
 let interruptBuffer: Int32Array | null = null;
 let running: boolean = false;
@@ -43,9 +52,6 @@ async function gameLoop(): Promise<void> {
 }
 
 async function ejecutar(): Promise<void> {
-  if (!pyodide) {
-    return Swal.fire({ title: 'Cargando...', text: 'Python aún se está cargando', icon: 'info' });
-  }
   const codigo: string = editor.getValue();
   try {
     axis.visible = false;

@@ -1,18 +1,55 @@
+import * as Blockly from 'blockly';
+import 'blockly/blocks';
+import 'blockly/javascript';
+import 'blockly/python';
+
+const toolbox = {
+  kind: 'flyoutToolbox',
+  contents: [
+    {
+      kind: 'category',
+      name: 'Events',
+      colour: '#5C81A6',
+      contents: [
+        { kind: 'block', type: 'on_start' }
+      ],
+    },
+    {
+      kind: 'category',
+      name: 'Logic',
+      colour: '#5C81A6',
+      contents: [
+        { kind: 'block', type: 'controls_if' },
+        { kind: 'block', type: 'logic_compare' },
+      ],
+    },
+    {
+      kind: 'category',
+      name: 'Math',
+      colour: '#5CA65C',
+      contents: [
+        { kind: 'block', type: 'math_number' },
+        { kind: 'block', type: 'math_arithmetic' },
+      ],
+    },
+  ],
+};
+
 const workspace = Blockly.inject('blocks_editor', {
-  toolbox: document.getElementById('toolbox'),
+  toolbox,
   renderer: 'zelos',
   zoom: {
     controls: true,
     wheel: true,
     startScale: 0.8,
     maxScale: 3,
-    minScale: 0.3
+    minScale: 0.3,
   },
   grid: {
     spacing: 20,
     length: 3,
     colour: '#ccc',
-    snap: true
+    snap: true,
   },
 });
 
@@ -37,20 +74,20 @@ Blockly.defineBlocksWithJsonArray([
     "colour": 1
   },
   {
-    "type": "al_iniciar",//un bloque de cabezera que hice por hacer
+    "type": "al_iniciar",
     "message0": "Al iniciar el juego",
     "nextStatement": null,
     "colour": 180
   },
   {
-    "type": "cambiar_eje",//para cambiar las coords (x, y, z)
+    "type": "cambiar_eje",
     "message0": "cambiar %1 de %2 para %3",
     "args0":[
       {
         "type": "field_dropdown",
         "name": "eje_a_cambiar",
         "options" : [
-          ["x", "x"],//los ejes xd
+          ["x", "x"],
           ["y", "y"],
           ["z", "z"]
         ]
@@ -70,7 +107,7 @@ Blockly.defineBlocksWithJsonArray([
     "nextStatement": true,
     "colour": 1
   },{
-  "type": "forever",// un bucle indispensable xd
+  "type": "forever",
   "message0": "por siempre %1 %2",
   "args0": [
     {
@@ -98,3 +135,7 @@ Blockly.defineBlocksWithJsonArray([
   "colour": 20
 }
 ]);
+
+let blocks_code_generated: string = (Blockly as any).Python.workspaceToCode(workspace);
+
+export { workspace, blocks_code_generated };
