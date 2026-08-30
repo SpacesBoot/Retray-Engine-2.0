@@ -115,4 +115,7 @@ async function detener(): Promise<void> {
 
 window.addEventListener("load", async () => {
   await initPython();
+    if (loader) loader.style.display = 'none';
 });
+
+export {loader, ltxt, game_name, ot, oc};

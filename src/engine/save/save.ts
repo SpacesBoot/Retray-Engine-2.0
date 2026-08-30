@@ -1,8 +1,13 @@
+import { editor } from "../editor/editor";
+import { objectList3d } from "../3d/objects/objects";
+import { game_name, ot, optionalColor } from "../main/main";
+import { export_type } from "../3d/export/export";
+
 function guardar(){
   let game = {
     code: editor.getValue(),
     name: game_name.value,
-    objects: objectList,
+    objects: objectList3d,
     exportType: export_type.value,
     optionalText: ot.value,
     optionalC: optionalColor.value
@@ -34,7 +39,7 @@ function abrirJuego(name: string): void {
   let game = JSON.parse(localStorage.getItem(name));
   editor.setValue(game.code);
   game_name.value = game.name;
-  objectList = game.objects;
+  objectList3d = game.objects;
   export_type.value = game.exportType;
   ot.value = game.optionalText;
   optionalColor.value = game.optionalC;

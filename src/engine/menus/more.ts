@@ -1,6 +1,8 @@
-let more_form: string = document.getElementById("more_form").innerHTML;
+import Swal from "sweetalert2";
 
-function more(): void {
+let more_form: string = document.getElementById("more_form")?.innerHTML ?? "";
+
+function more_window(): void {
     Swal.fire({
         title: "More...",
         html: more_form,
@@ -12,3 +14,5 @@ function more(): void {
         if (result.isConfirmed) {}
     });
 }
+
+export { more_window };
