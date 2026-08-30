@@ -1,92 +1,25 @@
 <!DOCTYPE html>
-<html>
-<!-- -->
-
+<html lang="es">
 <head>
   <title>Retray Engine 1.2</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
+  <meta charset="UTF-8" />
   
   <link rel="icon" type="image/png" href="./assets/logooo.png">
-  
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css">
-  <link rel="stylesheet" href="./src/interface/interface.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/theme/dracula.min.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/hint/show-hint.min.css">
+  <link rel="stylesheet" href="/src/interface/interface.css">
 </head>
 <body class="bg-dark">
   
-  <script src="https://unpkg.com/three@0.140.0/build/three.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/three@0.140.2/examples/js/controls/OrbitControls.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/three@0.140.0/examples/js/loaders/GLTFLoader.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-  <script src="https://cdn.jsdelivr.net/pyodide/v0.25.1/full/pyodide.js"></script>
-  <script src="https://unpkg.com/blockly/blockly_compressed.js"></script>
-  <script src="https://unpkg.com/blockly/blocks_compressed.js"></script>
-  <script src="https://unpkg.com/blockly/javascript_compressed.js"></script>
-  <script src="https://unpkg.com/blockly/msg/es.js"></script>
-
-  <button onclick="ejecutar();" class="btn">Play</button>
-  <button onclick="detener();" class="btn">Stop</button>
-  <button onclick="more();" class="btn">More...</button>
+  <button id="btn-play" class="btn">Play</button>
+  <button id="btn-stop" class="btn">Stop</button>
+  <button id="btn-more" class="btn">More...</button>
   
   <div style="position: relative; width: 100%; max-width: 360px; height: 250px;">
     <canvas id="view3d" width="360" height="250"></canvas>
     <canvas id="view2d" width="360" height="250"></canvas>
   </div>
 
-  <div id="downbar">
-    <div id="blocks_editor">
-      <xml id="toolbox" style="display: none">
-    
-  <category name="Eventos" colour="180">
-    <block type="al_iniciar">
-    </block>
-  </category>
-  
-  <category name="Logica" colour="%{BKY_LOGIC_HUE}">
-    <block type="controls_if"></block>
-    <block type="logic_compare"></block>
-    <block type="logic_boolean"></block>
-    <block type="text"></block>
-  </category>
-  
-  <category name="IO" colour="1">
-    <block type="write"></block>
-  </category>
-
-  <category name="Loops" colour="%{BKY_LOOPS_HUE}">
-    <block type="controls_repeat_ext"></block>
-    <block type="controls_whileUntil"></block>
-    <block type="forever"></block>
-  </category>
-  
-  <category name="Matematica" colour="%{BKY_MATH_HUE}">
-    <block type="math_number"></block>
-    <block type="math_arithmetic"></block>
-  </category>
-  
-  <category name="Objetos" colour="0">
-      <block type="crear_obj"></block>
-      <block type="cambiar_eje"></block>
-    </category>
-    
-  <category name="Variables" custom="VARIABLE" colour="330"></category>
-  </xml>
-    </div>
-    <!-- <textarea name="code-editor" id="code-editor" cols="30" rows="10">
-# this a game example
-
-createPrimitive("cube", "pepe")
-x = 0
-
-def update():
-  global x
-  x -= 0.1
-  move("pepe", x, 0, 0)
-</textarea> -->
-  </div>
+  <div id="downbar"></div>
   
   <div id="loader">
     <img src="./assets/logooo.png" width="200px" height="200px">
@@ -97,15 +30,13 @@ def update():
     <p>Game Settings...</p>
     <hr>
     <p>Name:<input id="game_name" placeholder="MyGame"></p>
-    <button class="btn" onclick="guardar();"> Save Game </button>
+    <button id="btn-guardar" class="btn"> Save Game </button>
     <hr>
     <p>Another Games...</p>
     <ul id="game_list"></ul>
 
     <hr>
-
     <p> Export Settings... </p>
-
     <hr>
     <p>Export Type: 
       <select id="export_type" name="export_type">
@@ -116,29 +47,8 @@ def update():
     <p>Optional Text(loading screen): <input id="ot" placeholder="Made By You"></p>
     <p>Optional Background Color(loading screen): <input id="optionalColor" type="color"></p>
 
-    <button class="btn" onclick="exportar();"> Export Game </button>
+    <button id="btn-exportar" class="btn"> Export Game </button>
   </div>
-  
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/python/python.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/edit/closebrackets.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/edit/matchbrackets.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/selection/active-line.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/hint/show-hint.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/hint/anyword-hint.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/hint/python-hint.min.js"></script>
-  <script src="./src/engine/2d/physics/collision/collision2d.js"></script>
-  <script src="./src/engine/2d/core2d.js"></script>
-  <script src="./src/engine/3d/objects/objects3d.js"></script>
-  <script src="./src/engine/3d/core3d.js"></script>
-  <script src="./src/engine/python/run.js"></script>
-  <script src="./src/engine/blocks/blocks.js"></script>
-  <script src="./src/engine/code_editor/editor.js"></script>
-  <script src="./src/engine/multimedia/audio/audio.js"></script>
-  <script src="./src/engine/save/save.js"></script>
-  <script src="./src/export/export.js"></script>
-  <script src="./src/export/html_export/html_export.js"></script>
-  <script src="./src/engine/menus/more.js"></script>
-  <script src="./src/engine/events/events.js"></script>
+  <script type="module" src="./src/main/main.ts"></script>
 </body>
 </html>
