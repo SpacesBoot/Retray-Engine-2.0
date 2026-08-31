@@ -10,11 +10,18 @@ import { scene, camera, render, controls, grid, axis, ambient_light, GLTFloader 
 type Object3D = {
     name: string;
     type: string;
-    object: THREE.Object3D | THREE.Light;
+    object: THREE.Object3D;
     body: CANNON.Body;
 }
 
-let objectList3d: { [key: string]: Object3D } = {};
+type Light3D = {
+    name: string;
+    type: string;
+    object: THREE.Light;
+    body: CANNON.Body;
+}
+
+let objectList3d: { [key: string]: Object3D | Light3D } = {};
 
 function crearObjeto3d(tipo: string, nombre: string){
   if(tipo == "cube"){
@@ -128,4 +135,4 @@ function crearMesh(name: string, src: string){
 );
 }
 
-export { Object3D, crearObjeto3d, crearAsset3d, objectList3d };
+export { Object3D, Light3D, crearObjeto3d, crearAsset3d, objectList3d };

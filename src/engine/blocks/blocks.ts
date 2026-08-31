@@ -2,13 +2,19 @@ import * as Blockly from 'blockly';
 import 'blockly/blocks';
 import 'blockly/javascript';
 import 'blockly/python';
+import { mode } from '../main/main';
 
-const toolbox = {
-  kind: 'flyoutToolbox',
-  contents: [
-    {
-      kind: 'category',
-      name: 'Events',
+let toolbox: Blockly.utils.toolbox.ToolboxDefinition;
+let workspace: Blockly.WorkspaceSvg;
+let blocks_code_generated: string;
+
+if (mode == "blocks") {
+  toolbox = {
+    kind: 'flyoutToolbox',
+    contents: [
+      {
+        kind: 'category',
+        name: 'Events',
       colour: '#5C81A6',
       contents: [
         { kind: 'block', type: 'on_start' }
@@ -35,7 +41,7 @@ const toolbox = {
   ],
 };
 
-const workspace = Blockly.inject('blocks_editor', {
+workspace = Blockly.inject('blocks_editor', {
   toolbox,
   renderer: 'zelos',
   zoom: {
@@ -75,13 +81,13 @@ Blockly.defineBlocksWithJsonArray([
   },
   {
     "type": "al_iniciar",
-    "message0": "Al iniciar el juego",
+    "message0": "On Init",
     "nextStatement": null,
     "colour": 180
   },
   {
     "type": "cambiar_eje",
-    "message0": "cambiar %1 de %2 para %3",
+    "message0": "change %1 of %2 to %3",
     "args0":[
       {
         "type": "field_dropdown",
@@ -108,7 +114,7 @@ Blockly.defineBlocksWithJsonArray([
     "colour": 1
   },{
   "type": "forever",
-  "message0": "por siempre %1 %2",
+  "message0": "forever %1 %2",
   "args0": [
     {
       "type": "input_dummy"
@@ -136,6 +142,12 @@ Blockly.defineBlocksWithJsonArray([
 }
 ]);
 
-let blocks_code_generated: string = (Blockly as any).Python.workspaceToCode(workspace);
+(Blockly as any).Python['al_iniciar'] = function(block: Blockly.Block) {
+  const code = `# Game Init \n`;
+  return code;
+}
+
+blocks_code_generated = (Blockly as any).Python.workspaceToCode(workspace);
+}
 
 export { workspace, blocks_code_generated };

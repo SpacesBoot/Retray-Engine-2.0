@@ -37,4 +37,4 @@ export function create2dObject(type: string, name: string): void {
     game.stage.addChild(object);
 }
 
-export { Object2D, objectList2d };
+export { objectList2d, Object2D };
