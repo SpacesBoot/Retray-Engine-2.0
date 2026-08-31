@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "rootDir": "./src/engine/",
+    "rootDir": "./src/engine/main",
     "outDir": "./dist",
     "declaration": true,
     "declarationDir": "./dist/types",
